@@ -31,7 +31,9 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="loginModal" options={{ presentation: 'modal', title: "Login" }} />
+        <Stack.Screen name="signupModal" options={{ presentation: 'modal', title: "Sign Up" }} />
       </Stack>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
