@@ -1,6 +1,7 @@
 import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
+import { Colors } from '@/constants/Colors';
 
 const LoginModal = () => {
     return (
@@ -37,7 +38,7 @@ export default LoginModal;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
         backgroundColor: '#2D5C4E',
     },
     welcomeScreen: {
@@ -57,14 +58,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     description: {
-        fontSize: 16,
-        color: '#fff',
-        marginTop: 10,
+        fontSize: 19,
+        fontWeight: '100',
         textAlign: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
+        lineHeight: 19,
+        color: Colors.secondaryColor,
     },
     loginScreen: {
-        flex: 2,
+        flex: 1,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,

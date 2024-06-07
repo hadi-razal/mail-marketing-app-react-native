@@ -1,40 +1,43 @@
 import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import React from 'react';
+import { Colors } from '@/constants/Colors';
 
 const SignUpModal = () => {
-    <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-    >
-        <StatusBar barStyle="light-content" />
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.welcomeScreen}>
-                {/* <Image source={require('../assets/images/icon.png')} style={styles.logo} /> */}
-                <Text style={styles.title}>Mail Motion</Text>
-                <Text style={styles.description}>Mail Motion is a mail marketing application designed to help you create, manage, and track email campaigns effectively. Engage your audience with personalized content and optimize your marketing strategies.</Text>
-            </View>
-            <View style={styles.loginScreen}>
-                <Text style={styles.welcomeText}>Welcome</Text>
-                <Text style={styles.signInText}>Sign Up to continue</Text>
-                <TextInput style={styles.input} placeholder="Email address" placeholderTextColor="#aaa" />
-                <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Sign Up</Text>
-                </TouchableOpacity>
-                <View style={styles.footer}>
-                    {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
-                    <Text style={styles.footerText}>Forgot Password?</Text>
+    return (
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+        >
+            <StatusBar barStyle="light-content" />
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={styles.welcomeScreen}>
+                    {/* <Image source={require('../assets/images/icon.png')} style={styles.logo} /> */}
+                    <Text style={styles.title}>Mail Motion</Text>
+                    <Text style={styles.description}>Mail Motion is a mail marketing application designed to help you create, manage, and track email campaigns effectively. Engage your audience with personalized content and optimize your marketing strategies.</Text>
                 </View>
-            </View>
-        </ScrollView>
-    </KeyboardAvoidingView>
+                <View style={styles.loginScreen}>
+                    <Text style={styles.welcomeText}>Welcome</Text>
+                    <Text style={styles.signInText}>Sign Up to continue</Text>
+                    <TextInput style={styles.input} placeholder="Email address" placeholderTextColor="#aaa" />
+                    <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
+                    <TouchableOpacity style={styles.loginButton}>
+                        <Text style={styles.loginButtonText}>Sign Up</Text>
+                    </TouchableOpacity>
+                    <View style={styles.footer}>
+                        {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
+                        {/* <Text style={styles.footerText}>Forgot Password?</Text> */}
+                    </View>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
+    );
 };
 
 export default SignUpModal;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
         backgroundColor: '#2D5C4E',
     },
     welcomeScreen: {
@@ -54,14 +57,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     description: {
-        fontSize: 16,
-        color: '#fff',
-        marginTop: 10,
+        fontSize: 19,
+        fontWeight: '100',
         textAlign: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
+        lineHeight: 19,
+        color: Colors.secondaryColor,
     },
     loginScreen: {
-        flex: 2,
+        flex: 1,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
