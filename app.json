@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "mail-marketing",
-    "slug": "mail-marketing",
+    "name": "Mail Motion",
+    "slug": "mail-motion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "mailMotion",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
