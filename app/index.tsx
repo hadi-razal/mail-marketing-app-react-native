@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 
 import { Colors } from '@/constants/Colors';
 
@@ -13,13 +13,12 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.ctaContainer}>
-        <TouchableOpacity style={styles.linkContainer}>
-
-          <Link href={'/loginModal'} style={styles.linkText}>Login</Link>
+        <TouchableOpacity onPress={() => router.push('/loginModal')} style={styles.btnContainer}>
+          <Text style={styles.btnText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.linkContainer}>
+        <TouchableOpacity onPress={() => router.push('/signupModal')} style={styles.btnContainer}>
 
-          <Link href={'/signupModal'} style={styles.linkText}>Sign Up</Link>
+          <Text style={styles.btnText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     backgroundColor: Colors.primayColor,
-    gap: 10,
+    gap: 0,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     textAlign: 'center',
-    fontSize: 52,
+    fontSize: 42,
     fontWeight: 'bold',
     color: Colors.secondaryColor,
   },
@@ -70,14 +69,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  linkContainer: {
+  btnContainer: {
     paddingVertical: 20,
     borderRadius: 10,
     width: '100%',
     color: Colors.secondaryColor,
     backgroundColor: Colors.primayColor
   },
-  linkText: {
+  btnText: {
     fontSize: 18,
     fontWeight: '400',
     width: '100%',

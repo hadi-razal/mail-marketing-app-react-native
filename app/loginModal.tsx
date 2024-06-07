@@ -1,75 +1,35 @@
 import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import React from 'react';
-import { Link } from 'expo-router';
-import { Colors } from '@/constants/Colors';
+
 
 const LoginModal = () => {
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-        >
-            <StatusBar barStyle="light-content" />
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={styles.welcomeScreen}>
-                    {/* <Image source={require('../assets/images/icon.png')} style={styles.logo} /> */}
-                    <Text style={styles.title}>Mail Motion</Text>
-                    <Text style={styles.description}>Mail Motion is a mail marketing application designed to help you create, manage, and track email campaigns effectively. Engage your audience with personalized content and optimize your marketing strategies.</Text>
+
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={styles.loginScreen}>
+                <Text style={styles.welcomeText}>Welcome</Text>
+                <Text style={styles.signInText}>Sign in to continue</Text>
+                <TextInput style={styles.input} placeholder="Email address" placeholderTextColor="#aaa" />
+                <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
+                <TouchableOpacity style={styles.loginButton}>
+                    <Text style={styles.loginButtonText}>Sign In</Text>
+                </TouchableOpacity>
+                <View style={styles.footer}>
+                    {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
+                    <Text style={styles.footerText}>Forgot Password?</Text>
                 </View>
-                <View style={styles.loginScreen}>
-                    <Text style={styles.welcomeText}>Welcome</Text>
-                    <Text style={styles.signInText}>Sign in to continue</Text>
-                    <TextInput style={styles.input} placeholder="Email address" placeholderTextColor="#aaa" />
-                    <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
-                    <TouchableOpacity style={styles.loginButton}>
-                        <Text style={styles.loginButtonText}>Sign In</Text>
-                    </TouchableOpacity>
-                    <View style={styles.footer}>
-                        {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
-                        <Text style={styles.footerText}>Forgot Password?</Text>
-                    </View>
-                </View>
-            </ScrollView>
-        </KeyboardAvoidingView>
+            </View>
+        </ScrollView>
+
     );
 };
 
 export default LoginModal;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 2,
-        backgroundColor: '#2D5C4E',
-    },
-    welcomeScreen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 40,
-    },
-    logo: {
-        width: 80,
-        height: 80,
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 42,
-        color: '#fff',
-        fontWeight: 'bold',
-    },
-    description: {
-        fontSize: 19,
-        fontWeight: '100',
-        textAlign: 'center',
-        paddingHorizontal: 15,
-        lineHeight: 19,
-        color: Colors.secondaryColor,
-    },
     loginScreen: {
         flex: 1,
         backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
         paddingVertical: 40,
         paddingHorizontal: 20,
         alignItems: 'center',
