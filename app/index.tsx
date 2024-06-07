@@ -1,17 +1,13 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { Colors } from '@/constants/Colors';
+
+const FONT_FAMILY = 'Poppins-Bold'; // Replace with actual font path
 
 export default function HomeScreen() {
-
-  // const [fontsLoaded] = useFonts({
-  //   'CedarvilleCursive': require('./assets/fonts/CedarvilleCursive-Regular.ttf'),
-  // });
-
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/Poppins-Bold.ttf'),
-  });
+  const [loaded] = useFonts({ FONT_FAMILY });
 
   if (!loaded) {
     return <AppLoading />;
@@ -19,30 +15,48 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Link style={[styles.title, styles.fontfam]} href={'/home'}>Mail Motion Your Marketing Partner</Link>
-      <Link style={[styles.title, styles.fontfam]} href={'/loginModal'}>Click Here to Login</Link>
-      <Link style={[styles.title, styles.fontfam]} href={'/signupModal'}>Click Here to Sign Up</Link>
+      <Text style={styles.heading}>Mail Motion: Your Marketing Partner</Text>
+
+      {/* Call to action links */}
+      <View style={styles.ctaContainer}>
+        <Link href={'/loinModal'} style={styles.ctaText}>Login</Link>
+        <Link href={'/signupModal'} style={styles.ctaText}>Sign Up</Link>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1, // Fill entire screen vertically
+    backgroundColor: '#F4F6F7', // Light gray background
+    paddingHorizontal: 20, // Horizontal padding
+    paddingTop: 100, // Top padding
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: 'black',
-    height: '100%',
-    gap: 8,
-    paddingTop: 100
+    justifyContent: 'space-between', // Align content at top
   },
-  title: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: 'white'
+  heading: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 40,
+    fontWeight: '500',
+    textAlign: 'center',
+    color: '#333333', // Dark gray heading text
   },
-  fontfam: {
-    fontFamily: 'Poppins-Bold',
-    // fontWeight: 800
-  }
+  ctaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Distribute CTAs evenly
+    marginTop: 50, // Margin top for spacing
+  },
+  ctaButton: {
+    backgroundColor: '#007BFF', // Blue background for CTAs
+    padding: 15,
+    borderRadius: 5, // Rounded corners for buttons
+  },
+  ctaText: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.primayColor,
+    backgroundColor: Colors.secondaryColor // White text for CTAs
+  },
 });
