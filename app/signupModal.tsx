@@ -1,12 +1,15 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert, Pressable, Platform, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Stack } from 'expo-router';
 
 
 const SignModal = () => {
 
 
-    const [laoding, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [name, setName] = useState<string>('')
@@ -14,10 +17,22 @@ const SignModal = () => {
 
     const handleSignUp = async () => {
         try {
+            if (!email || !password || !name) {
+                if (Platform.OS === 'android') {
+                    ToastAndroid.show("Error", ToastAndroid.SHORT)
+                } else {
+                    alert("Error");
+                }
+                return;
+            }
             setLoading(true)
-            const { data, error } = await supabase.auth.signUp({
+            const { data } = await supabase.auth.signUp({
                 email: email,
                 password: password,
+            })
+            const { error } = await supabase.from('users').insert({
+                name: name,
+                email: email,
             })
             console.log(data)
             setLoading(false)
@@ -31,15 +46,18 @@ const SignModal = () => {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+
+
             <View style={styles.loginScreen}>
                 <Text style={styles.welcomeText}>Welcome</Text>
                 <Text style={styles.signInText}>Sign in to continue</Text>
                 <TextInput value={name} onChangeText={(text) => setName(text)} style={styles.input} placeholder="Full Name" placeholderTextColor="#aaa" />
                 <TextInput value={email} onChangeText={(text) => setEmail(text)} style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
                 <TextInput value={password} onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
-                <TouchableOpacity onPress={handleSignUp} style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Sign In</Text>
-                </TouchableOpacity>
+                <Pressable onPress={handleSignUp} style={styles.loginButton}>
+                    <Text style={styles.loginButtonText}>{loading ? "Creating Account.." : "Sign Up"}</Text>
+                </Pressable>
                 <View style={styles.footer}>
                     {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
                     {/* <Text style={styles.footerText}>Forgot Password?</Text> */}
@@ -57,6 +75,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingVertical: 40,
+        paddingTop: 80,
         paddingHorizontal: 20,
         alignItems: 'center',
     },

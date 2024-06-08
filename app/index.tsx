@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { router } from 'expo-router';
-
-import { Colors } from '@/constants/Colors';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { router, Stack } from 'expo-router';
+import React from 'react';
+import { Colors } from '../constants/Colors';
 
 export default function HomeScreen() {
 
@@ -13,13 +13,14 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.ctaContainer}>
-        <TouchableOpacity onPress={() => router.push('/loginModal')} style={styles.btnContainer}>
+        <Pressable onPress={() => router.push('/loginModal')} style={styles.btnContainer}>
           <Text style={styles.btnText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/signupModal')} style={styles.btnContainer}>
+        </Pressable>
+        <Pressable onPress={() => router.push('/signupModal')} style={styles.btnContainer}>
 
           <Text style={styles.btnText}>Sign Up</Text>
-        </TouchableOpacity>
+        </Pressable>
+
       </View>
     </View>
   );
