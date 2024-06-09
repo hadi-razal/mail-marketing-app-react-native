@@ -1,11 +1,10 @@
 import { StyleSheet, View, Text } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Colors } from '../../constants/Colors';
-
 export default function HomeScreen() {
+
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>Home</Text>
     </View>
   );

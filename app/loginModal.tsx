@@ -1,8 +1,7 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { router, Stack } from 'expo-router';
-import { Colors } from '../constants/Colors';
+import { router } from 'expo-router';
 
 
 const LoginModal = () => {

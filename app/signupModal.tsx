@@ -1,8 +1,6 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert, Pressable, Platform, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { Stack } from 'expo-router';
 
 
 const SignModal = () => {

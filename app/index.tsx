@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { router, Stack } from 'expo-router';
+import { router } from 'expo-router';
 import React from 'react';
 import { Colors } from '../constants/Colors';
 
-export default function HomeScreen() {
+export default async function LandingScreen() {
 
   return (
     <View style={styles.container}>
@@ -24,6 +24,7 @@ export default function HomeScreen() {
       </View>
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({

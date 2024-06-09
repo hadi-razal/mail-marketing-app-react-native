@@ -1,25 +1,22 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Colors } from '../../constants/Colors';
 
 
 export default function TabTwoScreen() {
   return (
-    <View>
-      <Text>Profile</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Profile</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    paddingTop: 80
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  title: {
+    color: Colors.primayColor
   },
 });

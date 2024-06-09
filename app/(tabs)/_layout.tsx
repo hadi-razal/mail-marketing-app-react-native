@@ -1,4 +1,4 @@
-import { Stack, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/Colors';
@@ -13,8 +13,6 @@ export default function TabLayout() {
           backgroundColor: Colors.primayColor,
         },
       }}>
-
-      
 
       <Tabs.Screen
         name="home"
