@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: 800,
-    color: 'white'
+    color: Colors.primayColor
   }, logoText: {
     fontSize: 30,
     fontWeight: '700',

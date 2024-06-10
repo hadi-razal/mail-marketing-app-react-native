@@ -3,13 +3,14 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Colors } from '../constants/Colors';
 
-export default async function LandingScreen() {
-
+export default function LandingScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Mail Motion</Text>
-        <Text style={styles.desc}>Mail Motion is a mail marketing application designed to help you create, manage, and track email campaigns effectively. Engage your audience with personalized content and optimize your marketing strategies.</Text>
+        <Text style={styles.desc}>
+          Mail Motion is a mail marketing application designed to help you create, manage, and track email campaigns effectively. Engage your audience with personalized content and optimize your marketing strategies.
+        </Text>
       </View>
 
       <View style={styles.ctaContainer}>
@@ -17,14 +18,11 @@ export default async function LandingScreen() {
           <Text style={styles.btnText}>Login</Text>
         </Pressable>
         <Pressable onPress={() => router.push('/signupModal')} style={styles.btnContainer}>
-
           <Text style={styles.btnText}>Sign Up</Text>
         </Pressable>
-
       </View>
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -34,15 +32,14 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
   },
   headingContainer: {
     backgroundColor: Colors.primayColor,
-    gap: 0,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 150
+    marginBottom: 150,
   },
   heading: {
     textAlign: 'center',
@@ -55,35 +52,33 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     textAlign: 'center',
     paddingHorizontal: 15,
-    lineHeight: 19,
+    lineHeight: 25,
     color: Colors.secondaryColor,
   },
   ctaContainer: {
     flexDirection: 'column',
     gap: 5,
     backgroundColor: Colors.secondaryColor,
-    marginTop: 50,
     paddingHorizontal: 25,
     width: '100%',
-    height: '50%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 20,
+    height: '40%'
   },
   btnContainer: {
     paddingVertical: 20,
     borderRadius: 10,
     width: '100%',
-    color: Colors.secondaryColor,
-    backgroundColor: Colors.primayColor
+    backgroundColor: Colors.primayColor,
+    marginVertical: 5,
   },
   btnText: {
     fontSize: 18,
     fontWeight: '400',
-    width: '100%',
     textAlign: 'center',
     color: Colors.secondaryColor,
-    backgroundColor: Colors.primayColor
   },
 });

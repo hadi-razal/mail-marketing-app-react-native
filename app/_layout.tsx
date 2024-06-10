@@ -11,9 +11,9 @@ import 'react-native-reanimated';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // Load custom fonts if needed
+  // Load custom fonts with absolute path (optional):
   const [fontsLoaded] = useFonts({
-    CedarvilleCursive: require('../assets/fonts/CedarvilleCursive-Regular.ttf'),
+    CedarvilleCursive: require('../assets/fonts/CedarvilleCursive-Regular.ttf')
   });
 
   const hideSplashScreen = useCallback(async () => {
@@ -48,7 +48,7 @@ function RootLayoutNav() {
     <ThemeProvider value={DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        {/* <Stack.Screen name="+not-found" /> */}
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="signupModal" options={{ title: "Sign Up", headerShown: false }} />
         <Stack.Screen name="loginModal" options={{ title: "Login", headerShown: false }} />
