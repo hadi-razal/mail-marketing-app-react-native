@@ -1,9 +1,38 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { router } from 'expo-router';
-import React from 'react';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Colors } from '../constants/Colors';
+import { supabase } from '../utils/supabase';
 
 export default function LandingScreen() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const checkUser = async () => {
+      const { data, error } = await supabase.auth.getSession()
+      if (data.session?.access_token) {
+        router.replace('/home');
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkUser();
+
+  }, []);
+
+ 
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
@@ -26,6 +55,11 @@ export default function LandingScreen() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.primayColor,
