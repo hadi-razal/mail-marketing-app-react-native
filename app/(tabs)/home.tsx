@@ -5,8 +5,11 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
+      <View style={styles.hero}>
+        <Text style={styles.title}>Home</Text>
+      </View>
     </View>
+
   );
 }
 
@@ -15,7 +18,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingTop: 80
+    paddingTop: 80,
+    paddingHorizontal: 12,
+  },
+  hero: {
+    backgroundColor: Colors.primayColor,
+    width: '100%',
+    height: 300,
+    borderRadius: 10
   },
   title: {
     fontSize: 30,
