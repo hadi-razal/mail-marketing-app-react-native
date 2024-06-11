@@ -48,7 +48,7 @@ function RootLayoutNav() {
     <ThemeProvider value={DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="+not-found" /> */}
+        <Stack.Screen name="+not-found" />
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="signupModal" options={{ title: "Sign Up", headerShown: false }} />
         <Stack.Screen name="loginModal" options={{ title: "Login", headerShown: false }} />

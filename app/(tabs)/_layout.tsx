@@ -10,7 +10,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: Colors.secondaryColor,
         tabBarStyle: {
-          backgroundColor: Colors.primayColor,
+          backgroundColor: Colors.primaryColor,
         },
       }}>
 
@@ -19,7 +19,16 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='home' color={color} size={size} />
+            <Ionicons name='home' color={color} size={25} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="createMail"
+        options={{
+          title: 'Create',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='add-circle' color={color} size={30} />
           ),
         }}
       />
@@ -28,7 +37,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='person' color={color} size={size} />
+            <Ionicons name='person' color={color} size={25} />
           ),
         }}
       />

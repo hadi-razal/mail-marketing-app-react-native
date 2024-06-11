@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: Colors.primayColor,
+    color: Colors.primaryColor,
     marginBottom: 20,
   },
   logoutButton: {
-    backgroundColor: Colors.primayColor,
+    backgroundColor: Colors.primaryColor,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,

@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.primayColor,
+    backgroundColor: Colors.primaryColor,
     paddingTop: 100,
     flexDirection: 'column',
     justifyContent: 'flex-end',
     paddingHorizontal: 5,
   },
   headingContainer: {
-    backgroundColor: Colors.primayColor,
+    backgroundColor: Colors.primaryColor,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderRadius: 10,
     width: '100%',
-    backgroundColor: Colors.primayColor,
+    backgroundColor: Colors.primaryColor,
     marginVertical: 5,
   },
   btnText: {
