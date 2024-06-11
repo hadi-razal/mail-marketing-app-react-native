@@ -73,12 +73,14 @@ export default function CreateMailScreen() {
                 <TextInput
                     style={styles.input}
                     placeholder="Subject"
+                    placeholderTextColor="#aaa"
                     value={subject}
                     onChangeText={setSubject}
                 />
                 <TextInput
                     style={[styles.input, styles.textArea]}
-                    placeholder="Body"
+                    placeholder="Description"
+                    placeholderTextColor="#aaa"
                     value={body}
                     onChangeText={setBody}
                     multiline
@@ -87,11 +89,14 @@ export default function CreateMailScreen() {
                     <Text style={styles.imagePickerText}>Pick an image</Text>
                 </TouchableOpacity>
                 {image && <Image source={{ uri: image.uri }} style={styles.image} />}
-                {uploading ? (
-                    <ActivityIndicator size="large" color={Colors.primaryColor} />
-                ) : (
-                    <Button title="Send Email" onPress={handleSend} color={Colors.primaryColor} />
-                )}
+                <View style={styles.uploadBtn}>
+                    {uploading ? (
+                        <ActivityIndicator size="large" color={Colors.primaryColor} />
+                    ) : (
+                        <Button title="Send Email" onPress={handleSend} color={Colors.secondaryColor} />
+                    )}
+                </View>
+
             </View>
         </ScrollView>
     );
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     title: {
-        fontSize: 24,
+        fontSize: 34,
         fontWeight: 'bold',
         color: Colors.primaryColor,
         marginBottom: 20,
@@ -139,5 +144,10 @@ const styles = StyleSheet.create({
         height: "100%",
         marginBottom: 20,
         borderRadius: 10,
-    },
+    }, uploadBtn: {
+        backgroundColor: Colors.primaryColor,
+        color: Colors.secondaryColor,
+        borderRadius: 10,
+        height: 40,
+    }
 });
