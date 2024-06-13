@@ -5,6 +5,9 @@ import { Colors } from '../../constants/Colors';
 import { supabase } from '../../utils/supabase';
 import * as FileSystem from 'expo-file-system';
 import { decode } from 'base64-arraybuffer';
+import { FontAwesome } from '@expo/vector-icons';
+
+
 
 
 export default function CreateMailScreen() {
@@ -66,8 +69,10 @@ export default function CreateMailScreen() {
         Alert.alert('Email Sent', `Subject: ${subject}\nBody: ${body}\nImage: ${imageUrl}`);
     };
 
+
     return (
         <ScrollView>
+
             <View style={styles.container}>
                 <Text style={styles.title}>Create New Email</Text>
                 <TextInput
@@ -86,6 +91,7 @@ export default function CreateMailScreen() {
                     multiline
                 />
                 <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+                    <FontAwesome name="image" size={20} color="#fff" />
                     <Text style={styles.imagePickerText}>Pick an image</Text>
                 </TouchableOpacity>
                 {image && <Image source={{ uri: image.uri }} style={styles.image} />}
@@ -107,6 +113,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 80,
         paddingHorizontal: 12,
+        height: '100%',
         backgroundColor: '#fff',
     },
     title: {
@@ -132,16 +139,28 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primaryColor,
         padding: 10,
         borderRadius: 10,
-        alignItems: 'center',
         marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
+
     imagePickerText: {
         color: '#fff',
         fontSize: 16,
+        marginLeft: 10,
     },
     image: {
         width: '100%',
-        height: "100%",
+        aspectRatio: 1,
         marginBottom: 20,
         borderRadius: 10,
     }, uploadBtn: {
@@ -149,5 +168,8 @@ const styles = StyleSheet.create({
         color: Colors.secondaryColor,
         borderRadius: 10,
         height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
     }
 });
