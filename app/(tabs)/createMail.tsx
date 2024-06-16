@@ -12,6 +12,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function CreateMailScreen() {
     const [subject, setSubject] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
     const [image, setImage] = useState<any | null>(null);
     const [uploading, setUploading] = useState<boolean>(false);
@@ -83,6 +84,14 @@ export default function CreateMailScreen() {
                     onChangeText={setSubject}
                 />
                 <TextInput
+                    style={styles.input}
+                    placeholder="Tilte"
+                    placeholderTextColor="#aaa"
+                    value={title}
+                    onChangeText={setTitle}
+                    multiline
+                />
+                <TextInput
                     style={[styles.input, styles.textArea]}
                     placeholder="Description"
                     placeholderTextColor="#aaa"
@@ -90,11 +99,28 @@ export default function CreateMailScreen() {
                     onChangeText={setBody}
                     multiline
                 />
-                <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
-                    <FontAwesome name="image" size={20} color="#fff" />
-                    <Text style={styles.imagePickerText}>Pick an image</Text>
-                </TouchableOpacity>
-                {image && <Image source={{ uri: image.uri }} style={styles.image} />}
+
+                {!image && (
+                    <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+                        <FontAwesome name="image" size={20} color="#fff" />
+                        <Text style={styles.imagePickerText}>Pick an image</Text>
+                    </TouchableOpacity>
+                )}
+
+
+                {image && (
+                    <View style={{ position: 'relative' }}>
+                        <TouchableOpacity
+                            style={[styles.imageRemoveBtn, { position: 'absolute', top: 10, right: 10, backgroundColor: 'red' }]}
+                            onPress={() => setImage(null)}
+                        >
+                            <FontAwesome name="remove" size={20} color="#fff" />
+                        </TouchableOpacity>
+                        <Image source={{ uri: image.uri }} style={styles.image} />
+                    </View>
+                )}
+
+
                 <View style={styles.uploadBtn}>
                     {uploading ? (
                         <ActivityIndicator size="large" color={Colors.primaryColor} />
@@ -114,7 +140,6 @@ const styles = StyleSheet.create({
         paddingTop: 80,
         paddingHorizontal: 12,
         height: '100%',
-        backgroundColor: '#fff',
     },
     title: {
         fontSize: 34,
@@ -124,11 +149,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     input: {
-        height: 50,
         borderColor: '#2D5C4E',
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 10,
+        paddingVertical: 20,
         marginBottom: 20,
     },
     textArea: {
@@ -152,15 +177,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     imagePickerText: {
         color: '#fff',
         fontSize: 16,
         marginLeft: 10,
     },
+    imageRemoveBtn: {
+        position: 'absolute',
+        bottom: 1,
+        width: 47,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 50,
+        zIndex: 10
+    },
     image: {
         width: '100%',
-        aspectRatio: 1,
+        height: 350,
         marginBottom: 20,
         borderRadius: 10,
     }, uploadBtn: {
