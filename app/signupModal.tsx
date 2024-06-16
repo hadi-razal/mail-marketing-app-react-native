@@ -54,7 +54,7 @@ const SignModal = () => {
                 <TextInput value={email} onChangeText={(text) => setEmail(text)} style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
                 <TextInput value={password} onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
                 <Pressable onPress={handleSignUp} style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>{loading ? "Creating Account.." : "Sign Up"}</Text>
+                    <Text disabled={loading} style={styles.loginButtonText}>{loading ? "Creating Account.." : "Sign Up"}</Text>
                 </Pressable>
                 <View style={styles.footer}>
                     {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}

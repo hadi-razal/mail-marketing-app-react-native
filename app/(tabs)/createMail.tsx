@@ -122,11 +122,7 @@ export default function CreateMailScreen() {
 
 
                 <View style={styles.uploadBtn}>
-                    {uploading ? (
-                        <ActivityIndicator size="large" color={Colors.primaryColor} />
-                    ) : (
-                        <Button title="Send Email" onPress={handleSend} color={Colors.secondaryColor} />
-                    )}
+                    <Button disabled={uploading} title={uploading ? 'Uploading...' : 'Upload'} onPress={handleSend} color={Colors.secondaryColor} />
                 </View>
 
             </View>
@@ -155,9 +151,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 20,
         marginBottom: 20,
+        maxHeight: 50,
     },
     textArea: {
-        height: 150,
+        maxHeight: 150,
         textAlignVertical: 'top',
     },
     imagePicker: {
@@ -207,5 +204,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20,
+
     }
 });
