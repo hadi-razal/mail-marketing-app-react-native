@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, Alert, ScrollView, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Colors } from '../../constants/Colors';
 import { supabase } from '../../utils/supabase';
@@ -101,29 +101,29 @@ export default function CreateMailScreen() {
                 />
 
                 {!image && (
-                    <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+                    <Pressable style={styles.imagePicker} onPress={pickImage}>
                         <FontAwesome name="image" size={20} color="#fff" />
                         <Text style={styles.imagePickerText}>Pick an image</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 )}
 
 
                 {image && (
                     <View style={{ position: 'relative' }}>
-                        <TouchableOpacity
+                        <Pressable
                             style={[styles.imageRemoveBtn, { position: 'absolute', top: 10, right: 10, backgroundColor: 'red' }]}
                             onPress={() => setImage(null)}
                         >
                             <FontAwesome name="remove" size={20} color="#fff" />
-                        </TouchableOpacity>
+                        </Pressable>
                         <Image source={{ uri: image.uri }} style={styles.image} />
                     </View>
                 )}
 
 
-                <View style={styles.uploadBtn}>
-                    <Button disabled={uploading} title={uploading ? 'Uploading...' : 'Upload'} onPress={handleSend} color={Colors.secondaryColor} />
-                </View>
+                <Pressable style={styles.uploadBtn}>
+                    <Text style={styles.uploadBtnText}>{uploading ? 'Uploading...' : 'Upload'}</Text>
+                </Pressable>
 
             </View>
         </ScrollView>
@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     imagePickerText: {
-        color: '#fff',
+        fontWeight: '300',
+        color: Colors.secondaryColor,
         fontSize: 16,
         marginLeft: 10,
     },
@@ -205,5 +206,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 20,
 
+    }, uploadBtnText: {
+        fontWeight: '300',
+        color: Colors.secondaryColor,
+        fontSize: 16,
     }
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, Button, Alert, FlatList, TouchableOpacity, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Alert, Keyboard } from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
 
@@ -12,7 +12,7 @@ export default function HomeScreen() {
       setSubscribers([...subscribers, email]);
       Alert.alert('Subscriber Added', `Email: ${email}`);
       setEmail('');
-      Keyboard.dismiss();  // Close the keyboard
+      Keyboard.dismiss();
     } else {
       Alert.alert('Error', 'Please enter an email');
     }
@@ -20,29 +20,32 @@ export default function HomeScreen() {
 
   const renderSubscriber = ({ item }: any) => (
     <View style={styles.subscriberItem}>
-      <Text>{item}</Text>
+      <Text style={styles.subscriberText}>{item}</Text>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Mail Motion</Text> */}
+      <Text style={styles.welcomeText}>Welcome to Mail Motion</Text>
       <View style={styles.hero}>
         <Text style={styles.heroText}>Emails Sent : {emailsSent}</Text>
         <Text style={styles.heroText}>Total Subscribers : {subscribers.length}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Add Subscribers</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter email"
-          placeholderTextColor="#aaa"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TouchableOpacity style={styles.addButton} onPress={addSubscriber}>
-          <Text style={styles.addButtonText}>Add</Text>
-        </TouchableOpacity>
+        <View style={styles.inputWrapper}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter email"
+            placeholderTextColor="#aaa"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <TouchableOpacity style={styles.addButton} onPress={addSubscriber}>
+            <Text style={styles.addButtonText}>Add</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
       <View style={styles.subscribersContainer}>
         <Text style={styles.subscribersTitle}>Subscribers List</Text>
@@ -60,88 +63,96 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: 80,
-    paddingHorizontal: 12,
-    backgroundColor: '#fff',
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    backgroundColor: '#f9f9f9',
     flex: 1,
   },
-  title: {
-    fontSize: 40,
-    fontWeight: '700',
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: 'bold',
     color: Colors.primaryColor,
     textAlign: 'center',
-    paddingBottom: 10,
+    marginBottom: 20,
   },
   hero: {
     backgroundColor: Colors.primaryColor,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-    height: 100,
+    paddingVertical: 20,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   heroText: {
-    fontSize: 25,
-    fontWeight: "300",
+    fontSize: 22,
+    fontWeight: '600',
     color: Colors.secondaryColor,
+  },
+  inputWrapper: {
+    height: 50,
+    flexDirection: 'row'
   },
   inputContainer: {
     width: '100%',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   inputLabel: {
-    width: '100%',
-    fontSize: 26,
+    fontSize: 20,
     color: Colors.primaryColor,
-    marginRight: 10,
-    paddingVertical: 10,
-    fontWeight: '600'
+    marginBottom: 10,
+    fontWeight: '600',
   },
   input: {
     flex: 1,
     height: 50,
-    borderColor: '#2D5C4E',
+    borderColor: Colors.primaryColor,
     borderWidth: 1,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderRadius: 10,
     paddingHorizontal: 10,
-    // marginRight: 10,
+    marginRight: 10,
+    backgroundColor: '#fff',
   },
   addButton: {
     backgroundColor: Colors.primaryColor,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+    borderRadius: 10,
     paddingHorizontal: 20,
   },
   addButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: '600',
   },
   subscribersContainer: {
     width: '100%',
     flex: 1,
+    marginTop: 20,
   },
   subscribersTitle: {
-    width: '100%',
-    fontSize: 26,
+    fontSize: 22,
     color: Colors.primaryColor,
     marginBottom: 10,
-    fontWeight: '600'
+    fontWeight: '600',
+    textAlign: 'center',
   },
   subscriberList: {
     flexGrow: 1,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
   },
   subscriberItem: {
-    padding: 10,
+    padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#eee',
+  },
+  subscriberText: {
+    fontSize: 16,
+    color: '#333',
   },
 });

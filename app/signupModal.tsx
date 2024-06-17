@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert, Pressable, Platform, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Alert, Pressable, Platform, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
 

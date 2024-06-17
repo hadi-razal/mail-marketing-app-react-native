@@ -9,7 +9,7 @@ export default function TabTwoScreen() {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
-      router.replace('/') 
+      router.replace('/')
     } catch (error: any) {
       console.error('Error logging out:', error.message);
     }
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 34,
     color: Colors.primaryColor,
     marginBottom: 20,
   },
   logoutButton: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: "red",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
