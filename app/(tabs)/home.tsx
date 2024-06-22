@@ -1,18 +1,32 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Alert, Keyboard } from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
+import { supabase } from '../../utils/supabase';
 
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [subscribers, setSubscribers] = useState<any>([]);
   const [emailsSent, setEmailsSent] = useState(10);
 
-  const addSubscriber = () => {
+  const addSubscriber = async () => {
     if (email) {
       setSubscribers([...subscribers, email]);
       Alert.alert('Subscriber Added', `Email: ${email}`);
+
+
+
+      const { data } = await supabase.auth.getSession()
+
+
+      const { error } = await supabase.from('subscribers').insert({
+        id: 1,
+        email: email,
+      })
+
       setEmail('');
+
       Keyboard.dismiss();
+      console.log(error)
     } else {
       Alert.alert('Error', 'Please enter an email');
     }
