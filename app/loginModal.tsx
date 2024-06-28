@@ -1,111 +1,79 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { router } from 'expo-router';
-
+import { Link, router } from 'expo-router';
+import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 
 const LoginModal = () => {
-
-    const [loading, setLoading] = useState<boolean>(false)
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const handleLogin = async () => {
         try {
-            setLoading(true)
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password,
-            })
-            console.log(data)
+            setLoading(true);
+            const { data } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+            console.log(data);
             if (data) {
-                router.push('/home')
+                router.push('/home');
             }
-            console.log(data)
-            setLoading(false)
-            if (error) Alert.alert(error.message)
+            console.log(data);
+            setLoading(false);
         } catch (error) {
-            setLoading(false)
-            console.log(error)
+            setLoading(false);
+            console.log(error);
         }
-    }
-
-
+    };
 
     return (
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} className='bg-gray-100'>
 
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View className="flex flex-col items-center px-6 py-8  pt-[80px]">
 
-            <View style={styles.loginScreen}>
-                <Text style={styles.welcomeText}>Welcome</Text>
-                <Text style={styles.signInText}>Sign in to continue</Text>
-                <TextInput value={email} onChangeText={(text) => setEmail(text)} style={styles.input} placeholder="Email address" placeholderTextColor="#aaa" />
-                <TextInput value={password} onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" placeholderTextColor="#aaa" secureTextEntry />
-                <Pressable onPress={handleLogin} style={styles.loginButton}>
-                    <Text disabled={loading} style={styles.loginButtonText}>{loading ? "Loging.." : "Login"}</Text>
-                </Pressable>
-                <View style={styles.footer}>
-                    {/* <Link href={'/signupModal'} style={styles.footerText}>Sign up</Link> */}
-                    <Text style={styles.footerText}>Forgot Password?</Text>
+
+                <View className='w-full items-start justify-start '>
+                    <Text className="text-primaryColor text-2xl font-bold text-start">Mail Motion</Text>
+                    <Text className="text-gray-500 text-base mb-4">Sign up to continue</Text>
                 </View>
-            </View>
-        </ScrollView>
 
+                <TextInput
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                    className="w-full rounded-md border border-gray-300 py-2 px-3 mb-4 focus:outline-none "
+                    placeholder="Email"
+                    placeholderTextColor="#aaa"
+                />
+
+                <TextInput
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                    className="w-full rounded-md border border-gray-300 py-2 px-3 mb-4 focus:outline-none"
+                    placeholder="Password"
+                    placeholderTextColor="#aaa"
+                    secureTextEntry
+                />
+
+                <Pressable onPress={handleLogin} className="rounded-md bg-primaryColor py-4 px-4 text-center text-white font-medium disabled:opacity-50 w-full">
+
+                    <Text className='text-white text-center'>{loading ? 'Logging in...' : 'Login'}</Text>
+
+                </Pressable>
+
+
+                <View className="mt-4 flex flex-col items-center justify-center gap-1 py-3">
+
+                    <Text>Dont have an account?{" "}<Link href={'/signupModal'} className="text-blue-800 text-sm" >Sign up</Link></Text>
+
+                    <Link href={'/forgotpassword'} className="text-blue-800 text-sm">Forgot Password?</Link>
+
+                </View>
+
+            </View>
+
+        </ScrollView >
     );
 };
 
 export default LoginModal;
-
-const styles = StyleSheet.create({
-    loginScreen: {
-        flex: 1,
-        paddingTop: 80,
-        backgroundColor: '#fff',
-        paddingVertical: 40,
-        paddingHorizontal: 20,
-        alignItems: 'center',
-    },
-    welcomeText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#2D5C4E',
-    },
-    signInText: {
-        fontSize: 16,
-        color: '#2D5C4E',
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        height: 50,
-        borderColor: '#2D5C4E',
-        borderWidth: 1,
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        marginBottom: 20,
-    },
-    loginButton: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#2D5C4E',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    loginButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        width: '100%',
-    },
-    footerText: {
-        color: '#2D5C4E',
-        fontSize: 16,
-        textAlign: 'center'
-    },
-});

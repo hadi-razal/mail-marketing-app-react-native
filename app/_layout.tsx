@@ -6,6 +6,9 @@ import { useEffect, useCallback } from 'react';
 import React from 'react';
 import { View, Text } from 'react-native';
 import 'react-native-reanimated';
+import 'tailwindcss/tailwind.css'
+import './global.css'
+
 
 // Prevent the splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -33,7 +36,7 @@ export default function RootLayout() {
   if (!fontsLoaded) {
     console.log("Fonts are not loaded yet...");
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View className='bg-gray-100' style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Loading fonts...</Text>
       </View>
     );
@@ -50,8 +53,8 @@ function RootLayoutNav() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="signupModal" options={{ title: "Sign Up", headerShown: false }} />
-        <Stack.Screen name="loginModal" options={{ title: "Login", headerShown: false }} />
+        <Stack.Screen name="signupModal" options={{ title: "Sign Up", presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="loginModal" options={{ title: "Login", presentation: 'modal', headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

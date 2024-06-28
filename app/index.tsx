@@ -34,7 +34,7 @@ export default function LandingScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View className='bg-grey-300' style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Mail Motion</Text>
         <Text style={styles.desc}>

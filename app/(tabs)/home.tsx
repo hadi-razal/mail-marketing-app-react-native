@@ -3,15 +3,36 @@ import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
 import { supabase } from '../../utils/supabase';
 
+import { styled } from 'nativewind';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
+
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [subscribers, setSubscribers] = useState<any>([]);
   const [emailsSent, setEmailsSent] = useState(10);
 
+
+  const emails = ["hadhirasal22@gmail.com", "subscriber2@example.com"];
+  const body = {
+    author: "Author Name",
+    title: "Newsletter Title",
+    buttonURL: "http://example.com",
+    buttonContent: "Click Here",
+    content: "This is the newsletter content.",
+    imageURL: "http://example.com/image.jpg",
+    socialLinks: [
+      { name: "Facebook", url: "http://facebook.com" },
+      { name: "Twitter", url: "http://twitter.com" },
+    ]
+  };
+
   const addSubscriber = async () => {
     if (email) {
       setSubscribers([...subscribers, email]);
       Alert.alert('Subscriber Added', `Email: ${email}`);
+
 
 
 
@@ -39,7 +60,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <StyledView className="flex flex-col items-center justify-cente">
       <Text style={styles.welcomeText}>Welcome to Mail Motion</Text>
       <View style={styles.hero}>
         <Text style={styles.heroText}>Emails Sent : {emailsSent}</Text>
@@ -70,7 +91,7 @@ export default function HomeScreen() {
           contentContainerStyle={styles.subscriberList}
         />
       </View>
-    </View>
+    </StyledView >
   );
 }
 
