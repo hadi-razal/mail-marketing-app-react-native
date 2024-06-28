@@ -1,193 +1,68 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Alert, Keyboard } from 'react-native';
 import React, { useState } from 'react';
-import { Colors } from '../../constants/Colors';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { supabase } from '../../utils/supabase';
-
-import { styled } from 'nativewind';
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
 
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
-  const [subscribers, setSubscribers] = useState<any>([]);
+  const [subscribers, setSubscribers] = useState([]);
   const [emailsSent, setEmailsSent] = useState(10);
-
-
-  const emails = ["hadhirasal22@gmail.com", "subscriber2@example.com"];
-  const body = {
-    author: "Author Name",
-    title: "Newsletter Title",
-    buttonURL: "http://example.com",
-    buttonContent: "Click Here",
-    content: "This is the newsletter content.",
-    imageURL: "http://example.com/image.jpg",
-    socialLinks: [
-      { name: "Facebook", url: "http://facebook.com" },
-      { name: "Twitter", url: "http://twitter.com" },
-    ]
-  };
 
   const addSubscriber = async () => {
     if (email) {
-      setSubscribers([...subscribers, email]);
+      const newSubscribers = [...subscribers, email];
       Alert.alert('Subscriber Added', `Email: ${email}`);
 
-
-
-
-      const { data } = await supabase.auth.getSession()
-
-
-      const { error } = await supabase.from('subscribers').insert({
-        id: 1,
-        email: email,
-      })
+      await supabase.from('subscribers').insert({ email })
 
       setEmail('');
-
-      Keyboard.dismiss();
-      console.log(error)
     } else {
       Alert.alert('Error', 'Please enter an email');
     }
   };
 
-  const renderSubscriber = ({ item }: any) => (
-    <View style={styles.subscriberItem}>
-      <Text style={styles.subscriberText}>{item}</Text>
+  const renderSubscriber = ({ item }:any) => (
+    <View className="p-4 border-b border-gray-300">
+      <Text className="text-base text-gray-700">{item}</Text>
     </View>
   );
 
   return (
-    <StyledView className="flex flex-col items-center justify-cente">
-      <Text style={styles.welcomeText}>Welcome to Mail Motion</Text>
-      <View style={styles.hero}>
-        <Text style={styles.heroText}>Emails Sent : {emailsSent}</Text>
-        <Text style={styles.heroText}>Total Subscribers : {subscribers.length}</Text>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Add Subscribers</Text>
-        <View style={styles.inputWrapper}>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter email"
-            placeholderTextColor="#aaa"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <TouchableOpacity style={styles.addButton} onPress={addSubscriber}>
-            <Text style={styles.addButtonText}>Add</Text>
-          </TouchableOpacity>
+    <View style={{ flexGrow: 1, backgroundColor: 'bg-gray-100' }}>
+      <View className="flex items-center pt-[120] p-4 ">
+        <Text className="text-3xl font-bold text-primaryColor mb-6">Welcome to Mail Motion</Text>
+        <View className="bg-primaryColor w-full items-center justify-center p-4 rounded-lg mb-8">
+          <Text className="text-xl font-semibold text-white mb-2">Emails Sent : {emailsSent}</Text>
+          <Text className="text-xl font-semibold text-white">Total Subscribers : {subscribers.length}</Text>
         </View>
-
+        <View className="w-full mb-8">
+          <Text className="text-xl text-primaryColor mb-2 font-semibold">Add Subscriber</Text>
+          <View className="flex-row items-center">
+            <TextInput
+              className="flex-1 h-12 border border-gray-300 rounded-lg px-4 mr-4 bg-white"
+              placeholder="Enter email"
+              placeholderTextColor="#aaa"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <TouchableOpacity
+              className="bg-primaryColor h-12 rounded-lg px-6 flex items-center justify-center"
+              onPress={addSubscriber}
+            >
+              <Text className="text-white font-semibold text-lg">Add</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View className="w-full">
+          <Text className="text-xl text-primaryColor mb-2 font-semibold">Subscribers List</Text>
+          <FlatList
+            data={subscribers}
+            renderItem={renderSubscriber}
+            keyExtractor={(item, index) => index.toString()}
+            className="bg-white rounded-lg p-4"
+          />
+        </View>
       </View>
-      <View style={styles.subscribersContainer}>
-        <Text style={styles.subscribersTitle}>Subscribers List</Text>
-        <FlatList
-          data={subscribers}
-          renderItem={renderSubscriber}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.subscriberList}
-        />
-      </View>
-    </StyledView >
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: 60,
-    paddingHorizontal: 20,
-    backgroundColor: '#f9f9f9',
-    flex: 1,
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.primaryColor,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  hero: {
-    backgroundColor: Colors.primaryColor,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 20,
-    borderRadius: 10,
-    marginBottom: 30,
-  },
-  heroText: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: Colors.secondaryColor,
-  },
-  inputWrapper: {
-    height: 50,
-    flexDirection: 'row'
-  },
-  inputContainer: {
-    width: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  inputLabel: {
-    fontSize: 20,
-    color: Colors.primaryColor,
-    marginBottom: 10,
-    fontWeight: '600',
-  },
-  input: {
-    flex: 1,
-    height: 50,
-    borderColor: Colors.primaryColor,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginRight: 10,
-    backgroundColor: '#fff',
-  },
-  addButton: {
-    backgroundColor: Colors.primaryColor,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    paddingHorizontal: 20,
-  },
-  addButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  subscribersContainer: {
-    width: '100%',
-    flex: 1,
-    marginTop: 20,
-  },
-  subscribersTitle: {
-    fontSize: 22,
-    color: Colors.primaryColor,
-    marginBottom: 10,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  subscriberList: {
-    flexGrow: 1,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-  },
-  subscriberItem: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  subscriberText: {
-    fontSize: 16,
-    color: '#333',
-  },
-});

@@ -1,9 +1,11 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, Image } from 'react-native';
 import { supabase } from '../../utils/supabase';
 import { router } from 'expo-router';
 
-export default function TabTwoScreen() {
+
+export default function Profile() {
+
 
   const handleLogout = async () => {
     try {
@@ -15,19 +17,21 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <View className="flex flex-col items-center justify-center bg-gray-100 p-8 min-h-screen">
-      <Text className="text-3xl font-bold text-gray-800 mb-8">Profile</Text>
+    <View className={`flex gap-3 flex-col items-center justify-start pt-[80] px-4 min-h-screen`}>
 
-      <Pressable
-        className="bg-red-500 py-2 px-4 rounded-md text-center text-white font-medium"
-        onPress={handleLogout}
-      >
-        <Text>Logout</Text>
-      </Pressable>
+      {/* Profile Header */}
+      <Text className="text-[40px] font-bold text-primaryColor ">Profile</Text>
+      <View className="">
+        <Image
+          className="w-16 h-16 rounded-full bg-gray-200 border border-white object-cover" // Placeholder for profile picture
+          source={{ uri: 'https://via.placeholder.com/150' }} // Replace with user's profile picture URL or default placeholder
+        />
+      </View>
 
-      {/* Add more content here! */}
-      <View className="mt-8 space-y-4">
-        <Text className="text-gray-700">User Information:</Text>
+
+      {/* User Information Section */}
+      <View className="px-4 py-2 rounded-sm">
+        <Text className="text-gray-700 text-xl font-medium mb-2 text-center">User Information</Text>
         <View className="flex flex-row items-center space-x-4">
           <Text className="font-medium text-gray-800">Email:</Text>
           <Text className="text-gray-600">your_email@example.com</Text>
@@ -36,11 +40,17 @@ export default function TabTwoScreen() {
           <Text className="font-medium text-gray-800">Username:</Text>
           <Text className="text-gray-600">your_username</Text>
         </View>
-        {/* Add more user information fields as needed */}
       </View>
-      <View className="mt-8">
-        {/* Add other profile sections or actions here */}
-      </View>
+
+
+      <Pressable
+        className={`bg-red-600 py-3 px-4 rounded-md text-center text-white font-medium`}
+        onPress={handleLogout}
+      >
+        <Text className='text-white'>Logout</Text>
+      </Pressable>
+
+
     </View>
   );
 }

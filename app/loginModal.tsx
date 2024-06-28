@@ -15,12 +15,13 @@ const LoginModal = () => {
                 email,
                 password,
             });
-            console.log(data);
-            if (data) {
-                router.push('/home');
+            console.log(data.session?.access_token);
+            if (data.session?.access_token) {
+                return router.push('/home');
             }
             console.log(data);
             setLoading(false);
+            alert('Login Failed');
         } catch (error) {
             setLoading(false);
             console.log(error);
@@ -66,7 +67,9 @@ const LoginModal = () => {
 
                     <Text>Dont have an account?{" "}<Link href={'/signupModal'} className="text-blue-800 text-sm" >Sign up</Link></Text>
 
-                    <Link href={'/forgotpassword'} className="text-blue-800 text-sm">Forgot Password?</Link>
+                    <Link href={'/forgotpassword'} className="text-blue-800 text-sm">
+                    Forgot Password?
+                    </Link>
 
                 </View>
 

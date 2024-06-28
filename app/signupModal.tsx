@@ -86,7 +86,7 @@ const SignUpModal = () => {
                     className={`rounded-md bg-primaryColor py-4 px-4 text-center text-white font-medium w-full ${isLoading ? 'opacity-50' : ''}`}
                     disabled={isLoading}
                 >
-                    <Text className='text-white text-center'>{isLoading ? 'Signing up...' : 'Sign Up'}</Text>
+                    <Text className='text-white text-center'>{isLoading ? 'Signing up...' : 'SignUp'}</Text>
                 </Pressable>
 
                 <View className="mt-4 flex flex-col items-center justify-center gap-1 py-3">
