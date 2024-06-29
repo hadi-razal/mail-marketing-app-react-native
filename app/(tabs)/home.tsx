@@ -3,6 +3,7 @@ import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { supabase } from '../../utils/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 interface Subscriber {
   email: string;
@@ -23,7 +24,7 @@ export default function HomeScreen() {
 
   return (
     <View
-      className='flex flex-col justify-start min-h-screen pt-[80px]'
+      className='flex relative flex-col justify-start min-h-screen pt-[50px]'
     >
       <View className='justify-center items-center p-5'>
         <Text className='text-primaryColor text-center font-bold text-[48px]'>
@@ -50,6 +51,13 @@ export default function HomeScreen() {
           </Text>
         </View>
       </View>
+
+
+      <Pressable className='absolute shadow-sm flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
+        <FontAwesome6 name='plus' color='white' size={24} />
+      </Pressable>
+
+
     </View>
   );
 }
