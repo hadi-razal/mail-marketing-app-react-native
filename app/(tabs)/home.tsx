@@ -1,23 +1,29 @@
-import React from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable, Alert, ToastAndroid } from 'react-native';
 import { supabase } from '../../utils/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../constants/Colors';
 import { FontAwesome6 } from '@expo/vector-icons';
+import EmailImportModal from '../../components/EmailImportModal';
 
 interface Subscriber {
   email: string;
 }
 
 export default function HomeScreen() {
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = useState<string | any>('');
+  const [isOpen, setIsOpen] = useState<boolean>();
 
   const handleSubmit = async () => {
     const { error } = await supabase.from('subscribers').insert({ email });
     if (error) {
       Alert.alert('Subscription error', error.message);
+      ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
+
+
     } else {
       setEmail('');
+      ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
       Alert.alert('Success', 'Successfully subscribed!');
     }
   };
@@ -42,7 +48,7 @@ export default function HomeScreen() {
             className='bg-white p-4 rounded-sm text-[15px] mb-4'
           />
           <Pressable onPress={handleSubmit} className='bg-primaryColor p-4 rounded-sm'>
-            <Text className='text-white text-center font-bold'>Subscribe</Text>
+            <Text className='text-white text-center font-bold'>Make a Subscriber</Text>
           </Pressable>
         </View>
         <View>
@@ -53,10 +59,11 @@ export default function HomeScreen() {
       </View>
 
 
-      <Pressable className='absolute shadow-sm flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
+      <Pressable onPress={() => setIsOpen(!isOpen)} className='absolute shadow-sm flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
         <FontAwesome6 name='plus' color='white' size={24} />
       </Pressable>
 
+      {isOpen && <EmailImportModal isOpen={isOpen} setIsOpen={setIsOpen} />}
 
     </View>
   );
