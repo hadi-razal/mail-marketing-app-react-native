@@ -20,7 +20,6 @@ export default function HomeScreen() {
       Alert.alert('Subscription error', error.message);
       ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
 
-
     } else {
       setEmail('');
       ToastAndroid.show('Request sent successfully!', ToastAndroid.SHORT);
