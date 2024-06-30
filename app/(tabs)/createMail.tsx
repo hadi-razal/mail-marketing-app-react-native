@@ -124,3 +124,86 @@ export default function CreateMailScreen() {
         </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 80,
+        paddingHorizontal: 12,
+        height: '100%',
+    },
+    title: {
+        fontSize: 34,
+        fontWeight: 'bold',
+        color: Colors.primaryColor,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    input: {
+        borderColor: '#2D5C4E',
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 20,
+        marginBottom: 20,
+        maxHeight: 50,
+    },
+    textArea: {
+        maxHeight: 150,
+        textAlignVertical: 'top',
+    },
+    imagePicker: {
+        backgroundColor: Colors.primaryColor,
+        padding: 10,
+        borderRadius: 10,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    imagePickerText: {
+        fontWeight: '300',
+        color: Colors.secondaryColor,
+        fontSize: 16,
+        marginLeft: 10,
+    },
+    imageRemoveBtn: {
+        position: 'absolute',
+        bottom: 1,
+        width: 47,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 50,
+        zIndex: 10
+    },
+    image: {
+        width: '100%',
+        height: 350,
+        marginBottom: 20,
+        borderRadius: 10,
+    }, uploadBtn: {
+        backgroundColor: Colors.primaryColor,
+        color: Colors.secondaryColor,
+        borderRadius: 10,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+
+    }, uploadBtnText: {
+        fontWeight: '300',
+        color: Colors.secondaryColor,
+        fontSize: 16,
+    }
+});
