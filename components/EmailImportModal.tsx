@@ -4,6 +4,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as XLSX from 'xlsx';
 import { Ionicons } from '@expo/vector-icons';
 
+
 interface EmailImportModalProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -75,14 +76,14 @@ const EmailImportModal: FC<EmailImportModalProps> = ({ isOpen, setIsOpen }) => {
         return emails;
     };
 
-    
+
     return (
         <View
-            className={`absolute flex items-center justify-center w-full min-h-screen transition-opacity ease-in-out duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'
+            className={`absolute flex items-center justify-center w-full min-h-screen transition-opacity ease-in-out duration-300 px-10 ${isOpen ? 'opacity-100' : 'opacity-0'
                 }`}
-            style={{ backgroundColor: isOpen ? 'rgba(15, 23, 42, 0.8)' : 'rgba(15, 23, 42, 0)' }}
+            style={{ backgroundColor: isOpen ? 'rgba(0, 0, 0, 0.4)' : 'rgba(15, 23, 42, 0)' }}
         >
-            <View className='relative bg-gray-800 px-12 flex items-center justify-center rounded-md h-[200px] w-full z-10'>
+            <View className='relative shadow-lg bg-gray-800 px-12 flex items-center justify-center rounded-md h-[200px] w-full z-10'>
                 <Pressable onPress={handleImportFile} className='flex w-full flex-col items-center justify-center py-5 px-3 bg-primaryColor rounded-sm'>
                     <Text className='text-white text-lg'>Import</Text>
                 </Pressable>
@@ -90,7 +91,7 @@ const EmailImportModal: FC<EmailImportModalProps> = ({ isOpen, setIsOpen }) => {
                     Import Excel files to extract emails from it
                 </Text>
 
-                <Pressable onPress={handleCloseModal} className='absolute top-1 right-1 flex items-center justify-center w-14 h-14 rounded-full'>
+                <Pressable onPress={handleCloseModal} className='absolute top-0 right-0 flex items-center justify-center w-14 h-14 rounded-full'>
                     <Ionicons name='close' color='white' size={24} />
                 </Pressable>
             </View>
