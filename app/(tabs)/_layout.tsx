@@ -26,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="createMail"
         options={{
-          title: 'Send Mail',
+          title: 'Send',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='add-circle' color={color} size={30} />
           ),
