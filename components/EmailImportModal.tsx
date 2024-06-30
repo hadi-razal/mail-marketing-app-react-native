@@ -62,7 +62,7 @@ const EmailImportModal: FC<EmailImportModalProps> = ({ isOpen, setIsOpen }) => {
             style={{ backgroundColor: isOpen ? 'rgba(0, 0, 0, 0.4)' : 'rgba(15, 23, 42, 0)' }}
         >
             <View className='relative shadow-lg bg-gray-800 px-12 flex items-center justify-center rounded-md h-[200px] w-full z-10'>
-                <Pressable onPress={handleImportFile} className='flex w-full flex-col items-center justify-center py-5 px-3 bg-primaryColor rounded-sm'>
+                <Pressable onPress={handleImportFile} className='mb-2 flex w-full flex-col items-center justify-center py-5 px-3 bg-primaryColor rounded-sm'>
                     <Text className='text-white text-lg'>Import</Text>
                 </Pressable>
                 <Text className='text-gray-100 opacity-75'>

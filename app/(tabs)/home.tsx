@@ -27,9 +27,9 @@ export default function HomeScreen() {
 
   return (
     <View
-      className='flex relative flex-col justify-start min-h-screen pt-[50px]'
+      className='flex relative flex-col justify-start min-h-screen pt-[50px] '
     >
-      <View className='justify-center items-center p-5'>
+      <View className='justify-center items-center py-5 px-5'>
         <Text className='text-primaryColor text-center font-bold text-[48px]'>
           Mail Motion
         </Text>
@@ -55,8 +55,21 @@ export default function HomeScreen() {
         </View>
       </View>
 
+
+      {/* FAQ */}
+
+      <View className='mb-2 px-5'>
+        <Text className='text-primaryColor font-medium text-[25px] mb-2'>Used For ?</Text>
+        <Text className='font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fuga minus neque delectus explicabo reprehenderit quidem, exercitationem, animi odio maiores perferendis culpa corporis accusantium!</Text>
+      </View>
+      <View className='px-5'>
+        <Text className='text-primaryColor font-medium text-[25px] mb-2'>How to use  ?</Text>
+        <Text className='font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente fuga minus neque delectus explicabo reprehenderit quidem, exercitationem, animi odio maiores perferendis culpa corporis accusantium!</Text>
+      </View>
+
+
       {!isOpen &&
-        <Pressable onPress={() => setIsOpen(!isOpen)} className='absolute shadow-lg flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
+        <Pressable onPress={() => setIsOpen(!isOpen)} className='absolute shadow-2xl flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-[120px] right-[25px]'>
           <FontAwesome6 name='plus' color='white' size={24} />
         </Pressable>}
 

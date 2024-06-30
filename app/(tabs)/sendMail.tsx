@@ -119,11 +119,12 @@ export default function SendMailScreen() {
                     <Text className="text-white text-base ml-3">Add image</Text>
                 </Pressable>
             ) : (
-                <View className="relative mb-6">
-                    <Pressable className="absolute top-2 right-2 bg-red-500 w-10 h-10 rounded-full flex items-center justify-center" onPress={() => setImage(null)}>
+                <View className="relative flex items-center justify-center mb-6 ">
+                    <Pressable className="absolute z-10 top-2 right-2 bg-red-500 w-10 h-10 rounded-full flex items-center justify-center" onPress={() => setImage(null)}>
                         <FontAwesome name="remove" size={20} color="#fff" />
                     </Pressable>
-                    <Image source={{ uri: image.uri }} className="w-full h-52 rounded-lg" />
+                    <Text>{image.fileName}</Text>
+                    <Image source={{ uri: image.uri }} resizeMode="cover" className="rounded-lg" />
                 </View>
             )}
 
