@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, Alert, ToastAndroid } from 'react-native';
 import { supabase } from '../../utils/supabase';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Colors } from '../../constants/Colors';
 import { FontAwesome6 } from '@expo/vector-icons';
 import EmailImportModal from '../../components/EmailImportModal';
 
@@ -44,9 +42,9 @@ export default function HomeScreen() {
             onChangeText={setEmail}
             placeholder="Enter your email address"
             placeholderTextColor="#ccc"
-            className='bg-white p-4 rounded-sm text-[15px] mb-4'
+            className='bg-white p-4 rounded-sm  text-[15px] mb-4'
           />
-          <Pressable onPress={handleSubmit} className='bg-primaryColor p-4 rounded-sm'>
+          <Pressable onPress={handleSubmit} className='bg-primaryColor shadow-sm p-4 rounded-sm'>
             <Text className='text-white text-center font-bold'>Make a Subscriber</Text>
           </Pressable>
         </View>
@@ -57,10 +55,10 @@ export default function HomeScreen() {
         </View>
       </View>
 
-
-      <Pressable onPress={() => setIsOpen(!isOpen)} className='absolute shadow-sm flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
-        <FontAwesome6 name='plus' color='white' size={24} />
-      </Pressable>
+      {!isOpen &&
+        <Pressable onPress={() => setIsOpen(!isOpen)} className='absolute shadow-lg flex items-center justify-center w-14 h-14 rounded-full bg-primaryColor bottom-20 right-7'>
+          <FontAwesome6 name='plus' color='white' size={24} />
+        </Pressable>}
 
       {isOpen && <EmailImportModal isOpen={isOpen} setIsOpen={setIsOpen} />}
 

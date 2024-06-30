@@ -1,59 +1,38 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { View, Text, Pressable, Alert } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as XLSX from 'xlsx';
 import { Ionicons } from '@expo/vector-icons';
 
-
 interface EmailImportModalProps {
     isOpen: boolean;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpen: (isOpen: boolean) => void;
 }
 
-/**
- * Component for importing emails from Excel files.
- *
- * @param isOpen - Whether the modal is currently open.
- * @param setIsOpen - Function to toggle the modal open/closed.
- * @returns The React component.
- */
 const EmailImportModal: FC<EmailImportModalProps> = ({ isOpen, setIsOpen }) => {
-    /**
-     * Closes the modal.
-     */
-    const handleCloseModal = (): void => {
+    const handleCloseModal = useCallback(() => {
         setIsOpen(false);
-    };
+    }, [setIsOpen]);
 
-    /**
-     * Imports emails from an Excel file.
-     *
-     * @returns Promise that resolves with an array of emails.
-     */
-    const handleImportFile = async (): Promise<void> => {
+    const handleImportFile = useCallback(async () => {
         try {
             const result: any = await DocumentPicker.getDocumentAsync({
-                type: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'],
+                type: [
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.ms-excel',
+                ],
             });
 
             if (result.type === 'success') {
                 const emails = await extractEmailsFromExcel(result.uri);
-                console.log('Extracted Emails:', emails);
                 Alert.alert('Emails Imported', emails.join(', '));
             }
         } catch (error) {
-            console.error('Error importing file:', error);
             Alert.alert('Error', 'Failed to import file.');
         }
-    };
+    }, []);
 
-    /**
-     * Extracts emails from an Excel file.
-     *
-     * @param fileUri - URI of the Excel file.
-     * @returns Promise that resolves with an array of emails.
-     */
-    const extractEmailsFromExcel = async (fileUri: string): Promise<string[]> => {
+    const extractEmailsFromExcel = useCallback(async (fileUri: string) => {
         const response = await fetch(fileUri);
         const blob = await response.blob();
         const arrayBuffer = await blob.arrayBuffer();
@@ -64,18 +43,17 @@ const EmailImportModal: FC<EmailImportModalProps> = ({ isOpen, setIsOpen }) => {
             const worksheet = workbook.Sheets[sheetName];
             const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-            data.forEach((row: any) => {
+            data.forEach((row: any) =>
                 row.forEach((cell: any) => {
                     if (typeof cell === 'string' && cell.includes('@')) {
                         emails.push(cell);
                     }
-                });
-            });
+                })
+            );
         });
 
         return emails;
-    };
-
+    }, []);
 
     return (
         <View
