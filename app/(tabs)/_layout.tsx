@@ -24,7 +24,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="createMail"
+        name="sendMail"
         options={{
           title: 'Send',
           tabBarIcon: ({ color, size }) => (

@@ -7,7 +7,7 @@ import { decode } from 'base64-arraybuffer';
 import { FontAwesome } from '@expo/vector-icons';
 import 'nativewind';
 
-export default function CreateMailScreen() {
+export default function SendMailScreen() {
     const [subject, setSubject] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
@@ -66,19 +66,22 @@ export default function CreateMailScreen() {
     return (
         <ScrollView className="flex-1 pt-20 px-4 bg-gray-100">
             <View className="flex-1">
-                <Text className="text-2xl font-bold text-primaryColor mb-6 text-center">Send A New Email</Text>
+                <Text className="text-2xl font-bold text-gray-800 mb-6 text-center">Create New Email</Text>
                 <TextInput
                     className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
                     placeholder="Subject"
                     placeholderTextColor="#aaa"
                     value={subject}
                     onChangeText={setSubject}
+                    textAlignVertical='top'
+
                 />
                 <TextInput
                     className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
                     placeholder="Title"
                     placeholderTextColor="#aaa"
                     value={title}
+                    textAlignVertical='top'
                     onChangeText={setTitle}
                     multiline
                 />
@@ -88,12 +91,13 @@ export default function CreateMailScreen() {
                     placeholderTextColor="#aaa"
                     value={body}
                     onChangeText={setBody}
+                    textAlignVertical='top'
                     multiline
                     style={{ height: 100 }}
                 />
 
                 {!image ? (
-                    <Pressable className="bg-primaryColor  p-4 rounded-lg mb-6 flex-row items-center justify-center" onPress={pickImage}>
+                    <Pressable className="bg-primaryColor p-4 rounded-lg mb-6 flex-row items-center justify-center" onPress={pickImage}>
                         <FontAwesome name="image" size={20} color="#fff" />
                         <Text className="text-white text-lg ml-3">Pick an image</Text>
                     </Pressable>
@@ -124,86 +128,3 @@ export default function CreateMailScreen() {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 80,
-        paddingHorizontal: 12,
-        height: '100%',
-    },
-    title: {
-        fontSize: 34,
-        fontWeight: 'bold',
-        color: Colors.primaryColor,
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    input: {
-        borderColor: '#2D5C4E',
-        borderWidth: 1,
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 20,
-        marginBottom: 20,
-        maxHeight: 50,
-    },
-    textArea: {
-        maxHeight: 150,
-        textAlignVertical: 'top',
-    },
-    imagePicker: {
-        backgroundColor: Colors.primaryColor,
-        padding: 10,
-        borderRadius: 10,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    imagePickerText: {
-        fontWeight: '300',
-        color: Colors.secondaryColor,
-        fontSize: 16,
-        marginLeft: 10,
-    },
-    imageRemoveBtn: {
-        position: 'absolute',
-        bottom: 1,
-        width: 47,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 50,
-        backgroundColor: 'red',
-        padding: 10,
-        borderRadius: 50,
-        zIndex: 10
-    },
-    image: {
-        width: '100%',
-        height: 350,
-        marginBottom: 20,
-        borderRadius: 10,
-    }, uploadBtn: {
-        backgroundColor: Colors.primaryColor,
-        color: Colors.secondaryColor,
-        borderRadius: 10,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-
-    }, uploadBtnText: {
-        fontWeight: '300',
-        color: Colors.secondaryColor,
-        fontSize: 16,
-    }
-});
