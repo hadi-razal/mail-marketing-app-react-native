@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, Alert, ScrollView, Pressable } from 'react-native';
+import { View, Text, TextInput, Image, Alert, ScrollView, Pressable, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Colors } from '../../constants/Colors';
 import { supabase } from '../../utils/supabase';
 import * as FileSystem from 'expo-file-system';
 import { decode } from 'base64-arraybuffer';
 import { FontAwesome } from '@expo/vector-icons';
-
-
-
+import 'nativewind';
 
 export default function CreateMailScreen() {
     const [subject, setSubject] = useState<string>('');
@@ -20,7 +17,7 @@ export default function CreateMailScreen() {
     const pickImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
+            Alert.alert('Permissions required', 'Sorry, we need camera roll permissions to make this work!');
             return;
         }
 
@@ -30,11 +27,8 @@ export default function CreateMailScreen() {
 
         const result = await ImagePicker.launchImageLibraryAsync(options);
 
-
-
         if (!result.canceled) {
-            setImage(result.assets[0])
-
+            setImage(result.assets[0]);
         }
     };
 
@@ -46,12 +40,12 @@ export default function CreateMailScreen() {
                 const base64 = await FileSystem.readAsStringAsync(image.uri, { encoding: 'base64' });
                 const filePath = `/${new Date().getTime()}.${image.type === 'image' ? 'png' : 'mp4'}`;
                 const contentType = image.type === 'image' ? 'image/png' : 'video/mp4';
-                const res = await supabase.storage.from('images').upload(filePath, decode(base64), { contentType });
+                const res: any = await supabase.storage.from('images').upload(filePath, decode(base64), { contentType });
                 console.log(res);
+                return res.data?.Key;
             } else {
                 console.log('No image selected');
             }
-
         } catch (error: any) {
             Alert.alert('Error', error.message);
             console.error('Upload Error:', error);
@@ -61,154 +55,73 @@ export default function CreateMailScreen() {
         }
     };
 
-
     const handleSend = async () => {
         let imageUrl = null;
         if (image) {
             imageUrl = await uploadImage();
         }
-        Alert.alert('Email Sent', `Subject: ${subject}\nBody: ${body}\nImage: ${imageUrl}`);
+        Alert.alert('Email Sent', `Subject: ${subject}\nTitle: ${title}\nBody: ${body}\nImage: ${imageUrl}`);
     };
 
-
     return (
-        <ScrollView>
-
-            <View style={styles.container}>
-                <Text style={styles.title}>Create New Email</Text>
+        <ScrollView className="flex-1 pt-20 px-4 bg-gray-100">
+            <View className="flex-1">
+                <Text className="text-2xl font-bold text-primaryColor mb-6 text-center">Send A New Email</Text>
                 <TextInput
-                    style={styles.input}
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
                     placeholder="Subject"
                     placeholderTextColor="#aaa"
                     value={subject}
                     onChangeText={setSubject}
                 />
                 <TextInput
-                    style={styles.input}
-                    placeholder="Tilte"
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
+                    placeholder="Title"
                     placeholderTextColor="#aaa"
                     value={title}
                     onChangeText={setTitle}
                     multiline
                 />
                 <TextInput
-                    style={[styles.input, styles.textArea]}
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
                     placeholder="Description"
                     placeholderTextColor="#aaa"
                     value={body}
                     onChangeText={setBody}
                     multiline
+                    style={{ height: 100 }}
                 />
 
-                {!image && (
-                    <Pressable style={styles.imagePicker} onPress={pickImage}>
+                {!image ? (
+                    <Pressable className="bg-primaryColor  p-4 rounded-lg mb-6 flex-row items-center justify-center" onPress={pickImage}>
                         <FontAwesome name="image" size={20} color="#fff" />
-                        <Text style={styles.imagePickerText}>Pick an image</Text>
+                        <Text className="text-white text-lg ml-3">Pick an image</Text>
                     </Pressable>
-                )}
-
-
-                {image && (
-                    <View style={{ position: 'relative' }}>
+                ) : (
+                    <View className="relative mb-6">
                         <Pressable
-                            style={[styles.imageRemoveBtn, { position: 'absolute', top: 10, right: 10, backgroundColor: 'red' }]}
+                            className="absolute top-2 right-2 bg-red-500 w-10 h-10 rounded-full flex items-center justify-center"
                             onPress={() => setImage(null)}
                         >
                             <FontAwesome name="remove" size={20} color="#fff" />
                         </Pressable>
-                        <Image source={{ uri: image.uri }} style={styles.image} />
+                        <Image source={{ uri: image.uri }} className="w-full h-52 rounded-lg" />
                     </View>
                 )}
 
-
-                <Pressable style={styles.uploadBtn}>
-                    <Text style={styles.uploadBtnText}>{uploading ? 'Uploading...' : 'Upload'}</Text>
+                <Pressable
+                    className={`bg-primaryColor p-4 rounded-lg flex items-center justify-center ${uploading ? 'opacity-50' : ''}`}
+                    onPress={handleSend}
+                    disabled={uploading}
+                >
+                    {uploading ? (
+                        <ActivityIndicator size="small" color="#fff" />
+                    ) : (
+                        <Text className="text-white text-lg">Send</Text>
+                    )}
                 </Pressable>
-
             </View>
         </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 80,
-        paddingHorizontal: 12,
-        height: '100%',
-    },
-    title: {
-        fontSize: 34,
-        fontWeight: 'bold',
-        color: Colors.primaryColor,
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    input: {
-        borderColor: '#2D5C4E',
-        borderWidth: 1,
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 20,
-        marginBottom: 20,
-        maxHeight: 50,
-    },
-    textArea: {
-        maxHeight: 150,
-        textAlignVertical: 'top',
-    },
-    imagePicker: {
-        backgroundColor: Colors.primaryColor,
-        padding: 10,
-        borderRadius: 10,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    imagePickerText: {
-        fontWeight: '300',
-        color: Colors.secondaryColor,
-        fontSize: 16,
-        marginLeft: 10,
-    },
-    imageRemoveBtn: {
-        position: 'absolute',
-        bottom: 1,
-        width: 47,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 50,
-        backgroundColor: 'red',
-        padding: 10,
-        borderRadius: 50,
-        zIndex: 10
-    },
-    image: {
-        width: '100%',
-        height: 350,
-        marginBottom: 20,
-        borderRadius: 10,
-    }, uploadBtn: {
-        backgroundColor: Colors.primaryColor,
-        color: Colors.secondaryColor,
-        borderRadius: 10,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-
-    }, uploadBtnText: {
-        fontWeight: '300',
-        color: Colors.secondaryColor,
-        fontSize: 16,
-    }
-});
