@@ -5,14 +5,19 @@ import { supabase } from '../../utils/supabase';
 import * as FileSystem from 'expo-file-system';
 import { decode } from 'base64-arraybuffer';
 import { FontAwesome } from '@expo/vector-icons';
-import 'nativewind';
+
 
 export default function SendMailScreen() {
-    const [subject, setSubject] = useState<string>('');
-    const [title, setTitle] = useState<string>('');
-    const [body, setBody] = useState<string>('');
+    const [subject, setSubject] = useState('');
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
     const [image, setImage] = useState<any | null>(null);
-    const [uploading, setUploading] = useState<boolean>(false);
+    const [uploading, setUploading] = useState(false);
+    const [socialLinks, setSocialLinks] = useState({
+        facebook: '',
+        instagram: '',
+        twitter: '',
+    });
 
     const pickImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -25,9 +30,9 @@ export default function SendMailScreen() {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
         };
 
-        const result = await ImagePicker.launchImageLibraryAsync(options);
+        const result: any = await ImagePicker.launchImageLibraryAsync(options);
 
-        if (!result.canceled) {
+        if (!result.cancelled) {
             setImage(result.assets[0]);
         }
     };
@@ -63,68 +68,100 @@ export default function SendMailScreen() {
         Alert.alert('Email Sent', `Subject: ${subject}\nTitle: ${title}\nBody: ${body}\nImage: ${imageUrl}`);
     };
 
+    // Function to handle changes in social links inputs
+    const handleChangeSocialLinks = (platform: 'facebook' | 'instagram' | 'twitter', link: string) => {
+        setSocialLinks((prevLinks) => ({
+            ...prevLinks,
+            [platform]: link,
+        }));
+    };
+
+    // Function to handle social link click (to be implemented)
+    const handleSocialLink = (platform: string) => {
+        // Implement logic to open respective social media links
+        Alert.alert('Opening Social Link', `Opening ${platform} link`);
+    };
+
     return (
         <ScrollView className="flex-1 pt-20 px-4 bg-gray-100">
-            <View className="flex-1">
-                <Text className="text-2xl font-bold text-gray-800 mb-6 text-center">Create New Email</Text>
-                <TextInput
-                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
-                    placeholder="Subject"
-                    placeholderTextColor="#aaa"
-                    value={subject}
-                    onChangeText={setSubject}
-                    textAlignVertical='top'
+            <Text className="text-3xl font-bold text-gray-800 mb-6 text-center">Create New Email</Text>
+            <TextInput
+                className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                placeholder="Subject"
+                placeholderTextColor="#aaa"
+                value={subject}
+                onChangeText={setSubject}
+                textAlignVertical="top"
+            />
+            <TextInput
+                className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                placeholder="Title"
+                placeholderTextColor="#aaa"
+                value={title}
+                onChangeText={setTitle}
+                multiline
+                textAlignVertical="top"
+            />
+            <TextInput
+                className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                placeholder="Description"
+                placeholderTextColor="#aaa"
+                value={body}
+                onChangeText={setBody}
+                multiline
+                textAlignVertical="top"
+                numberOfLines={4}
+            />
 
-                />
-                <TextInput
-                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
-                    placeholder="Title"
-                    placeholderTextColor="#aaa"
-                    value={title}
-                    textAlignVertical='top'
-                    onChangeText={setTitle}
-                    multiline
-                />
-                <TextInput
-                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white"
-                    placeholder="Description"
-                    placeholderTextColor="#aaa"
-                    value={body}
-                    onChangeText={setBody}
-                    textAlignVertical='top'
-                    multiline
-                    style={{ height: 100 }}
-                />
-
-                {!image ? (
-                    <Pressable className="bg-primaryColor p-4 rounded-lg mb-6 flex-row items-center justify-center" onPress={pickImage}>
-                        <FontAwesome name="image" size={20} color="#fff" />
-                        <Text className="text-white text-lg ml-3">Pick an image</Text>
-                    </Pressable>
-                ) : (
-                    <View className="relative mb-6">
-                        <Pressable
-                            className="absolute top-2 right-2 bg-red-500 w-10 h-10 rounded-full flex items-center justify-center"
-                            onPress={() => setImage(null)}
-                        >
-                            <FontAwesome name="remove" size={20} color="#fff" />
-                        </Pressable>
-                        <Image source={{ uri: image.uri }} className="w-full h-52 rounded-lg" />
-                    </View>
-                )}
-
-                <Pressable
-                    className={`bg-primaryColor p-4 rounded-lg flex items-center justify-center ${uploading ? 'opacity-50' : ''}`}
-                    onPress={handleSend}
-                    disabled={uploading}
-                >
-                    {uploading ? (
-                        <ActivityIndicator size="small" color="#fff" />
-                    ) : (
-                        <Text className="text-white text-lg">Send</Text>
-                    )}
+            {!image ? (
+                <Pressable className="bg-primaryColor px-4 py-4 rounded-lg mb-6 flex-row items-center justify-center" onPress={pickImage}>
+                    <FontAwesome name="image" size={20} color="#fff" />
+                    <Text className="text-white text-base ml-3">Add image</Text>
                 </Pressable>
+            ) : (
+                <View className="relative mb-6">
+                    <Pressable className="absolute top-2 right-2 bg-red-500 w-10 h-10 rounded-full flex items-center justify-center" onPress={() => setImage(null)}>
+                        <FontAwesome name="remove" size={20} color="#fff" />
+                    </Pressable>
+                    <Image source={{ uri: image.uri }} className="w-full h-52 rounded-lg" />
+                </View>
+            )}
+
+            {/* Social Links Section */}
+            <View className="mt-8">
+                <Text className="text-lg font-semibold mb-2">Social Media Links:</Text>
+                <TextInput
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                    placeholder="Facebook Link"
+                    placeholderTextColor="#aaa"
+                    value={socialLinks.facebook}
+                    onChangeText={(text) => handleChangeSocialLinks('facebook', text)}
+                />
+                <TextInput
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                    placeholder="Instagram Link"
+                    placeholderTextColor="#aaa"
+                    value={socialLinks.instagram}
+                    onChangeText={(text) => handleChangeSocialLinks('instagram', text)}
+                />
+                <TextInput
+                    className="border border-gray-300 rounded-lg px-4 py-4 mb-4 bg-white text-base"
+                    placeholder="Twitter Link"
+                    placeholderTextColor="#aaa"
+                    value={socialLinks.twitter}
+                    onChangeText={(text) => handleChangeSocialLinks('twitter', text)}
+                />
             </View>
+
+            {/* Send Button */}
+            <Pressable className={`bg-primaryColor px-4 py-4 rounded-lg flex mb-[100px] items-center justify-center ${uploading ? 'opacity-50' : ''}`} onPress={handleSend} disabled={uploading}>
+                {uploading ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                    <Text className="text-white text-base">Send</Text>
+                )}
+            </Pressable>
+
         </ScrollView>
     );
 }
